@@ -1,69 +1,43 @@
 <template>
-  <div class="box" v-for="item in list">
-    <div>{{ item.title }}</div>
-    <img
-      :src="item.img"
-      @mouseover="handleOver(item, $event)"
-      @mouseleave="handleLeave(item, $event)"
-    />
-  </div>
+  <swiper
+    :slidesPerView="4"
+    :spaceBetween="30"
+    :pagination="{
+      clickable: true,
+    }"
+    :modules="modules"
+    class="mySwiper"
+  >
+    <swiper-slide>Slide 1</swiper-slide>
+    <swiper-slide>Slide 2</swiper-slide><swiper-slide>Slide 3</swiper-slide>
+    <swiper-slide>Slide 4</swiper-slide><swiper-slide>Slide 5</swiper-slide>
+    <swiper-slide>Slide 6</swiper-slide><swiper-slide>Slide 7</swiper-slide>
+    <swiper-slide>Slide 8</swiper-slide><swiper-slide>Slide 9</swiper-slide>
+  </swiper>
 </template>
+<script>
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
-<script setup>
-import img1 from './assets/服务机构1.png';
-import img2 from './assets/服务机构.png';
-import img3 from './assets/地理标志.png';
-import img4 from './assets/地理标志 (1).png';
+// Import Swiper styles
+import 'swiper/css';
 
-import { ref } from 'vue';
+import 'swiper/css/pagination';
 
-const list = ref([
-  {
-    title: '111',
-    img: img1,
-    key: 1,
+import './style.css';
+
+// import required modules
+import { Pagination } from 'swiper/modules';
+
+export default {
+  components: {
+    Swiper,
+    SwiperSlide,
   },
-  {
-    title: '222',
-    img: img3,
-    key: 2,
+  setup() {
+    return {
+      modules: [Pagination],
+    };
   },
-]);
-
-const handleOver = (e, a) => {
-  if (e.key === 1) {
-    e.img = img2;
-    a.currentTarget.className = 'active';
-  } else if (e.key === 2) {
-    e.img = img4;
-    a.currentTarget.className = 'active';
-  }
-};
-
-const handleLeave = (e, a) => {
-  a.currentTarget.className = '';
-  if (e.key === 1) {
-    e.img = img1;
-  } else if (e.key === 2) {
-    e.img = img3;
-  }
 };
 </script>
-
-<style scoped>
-.box {
-  width: 300px;
-  height: 140px;
-}
-
-.box img {
-  width: 100%;
-  height: 100%;
-}
-
-img.active {
-  transition: all 0.1s;
-  width: 315px;
-  height: 140px;
-}
-</style>
